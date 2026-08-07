@@ -146,7 +146,12 @@ else
     # git reset HEAD --hard
     # git pull --rebase
 fi
-
+echo_c 33 "\nApplying custom patches (UART + eMMC dla hi3516dv100)"
+   mkdir -p "$FIRMWARE_DIR/package/all-patches/linux"
+   cp "$BUILDER_DIR/patches-custom/0001-enable-uart1-uart2-uart3-hi3516a.patch" \
+      "$FIRMWARE_DIR/package/all-patches/linux/"
+   sed -i 's/# CONFIG_HIMCI is not set/CONFIG_HIMCI=y/' \
+      "$FIRMWARE_DIR/br-ext-chip-hisilicon/board/hi3516av100/hi3516dv100.generic.config"
 echo_c 33 "\nCopying extra packages"
 copy_extra_packages
 
